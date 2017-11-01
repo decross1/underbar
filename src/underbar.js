@@ -194,6 +194,25 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var total, test;
+
+    if (accumulator === undefined) {
+      total = collection[0], test = 1;
+    } else {
+      total = accumulator, test = 0;
+    }
+
+    if (!collection.length) {
+      for (var i in collection) {
+        total = iterator(total, collection[i]);
+      }
+    } else {
+        for (test; test < collection.length; test++) {
+          total = iterator(total, collection[test]);
+      }
+    }
+    
+    return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
